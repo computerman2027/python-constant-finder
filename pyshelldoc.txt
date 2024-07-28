@@ -1,0 +1,96 @@
+Python 3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+import math
+attributes = dir(math)
+constants = [attr for attr in attributes if attr.isupper() and not callable(getattr(math, attr))]
+
+print(constants)
+
+[]
+constants = [attr for attr in attributes if attr.isupper() and not callable(getattr(math, attr))]
+print(constants)
+[]
+
+================ RESTART: Shell ===============
+import inspect
+import math
+constants = [name for name, value in inspect.getmembers(math) if not inspect.isroutine(value) and not name.startswith('__')]
+print(constants)
+['e', 'inf', 'nan', 'pi', 'tau']
+import cmath
+constants = [name for name, value in inspect.getmembers(cmath) if not inspect.isroutine(value) and not name.startswith('__')]
+print(constants)
+['e', 'inf', 'infj', 'nan', 'nanj', 'pi', 'tau']
+print(dir(math))
+['__doc__', '__loader__', '__name__', '__package__', '__spec__', 'acos', 'acosh', 'asin', 'asinh', 'atan', 'atan2', 'atanh', 'cbrt', 'ceil', 'comb', 'copysign', 'cos', 'cosh', 'degrees', 'dist', 'e', 'erf', 'erfc', 'exp', 'exp2', 'expm1', 'fabs', 'factorial', 'floor', 'fmod', 'frexp', 'fsum', 'gamma', 'gcd', 'hypot', 'inf', 'isclose', 'isfinite', 'isinf', 'isnan', 'isqrt', 'lcm', 'ldexp', 'lgamma', 'log', 'log10', 'log1p', 'log2', 'modf', 'nan', 'nextafter', 'perm', 'pi', 'pow', 'prod', 'radians', 'remainder', 'sin', 'sinh', 'sqrt', 'sumprod', 'tan', 'tanh', 'tau', 'trunc', 'ulp']
+help(math.sum)
+Traceback (most recent call last):
+  File "<pyshell#14>", line 1, in <module>
+    help(math.sum)
+AttributeError: module 'math' has no attribute 'sum'. Did you mean: 'fsum'?
+help(math.fsum)
+Help on built-in function fsum in module math:
+
+fsum(seq, /)
+    Return an accurate floating point sum of values in the iterable seq.
+
+    Assumes IEEE-754 floating point arithmetic.
+
+help(sum)
+Help on built-in function sum in module builtins:
+
+sum(iterable, /, start=0)
+    Return the sum of a 'start' value (default: 0) plus an iterable of numbers
+
+    When the iterable is empty, return the start value.
+    This function is intended specifically for use with numeric values and may
+    reject non-numeric types.
+
+l=[1.3,35.6,75,6.7]
+print(sum(l))
+118.60000000000001
+print(fsum(l))
+Traceback (most recent call last):
+  File "<pyshell#19>", line 1, in <module>
+    print(fsum(l))
+NameError: name 'fsum' is not defined. Did you mean: 'sum'?
+print(math.fsum(l))
+118.60000000000001
+b=[3,5,s,75,^,4]
+SyntaxError: invalid syntax
+b=[3,5,'s',75,'^',4]
+print(sum(b))
+Traceback (most recent call last):
+  File "<pyshell#23>", line 1, in <module>
+    print(sum(b))
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+help(pow)
+Help on built-in function pow in module builtins:
+
+pow(base, exp, mod=None)
+    Equivalent to base**exp with 2 arguments or base**exp % mod with 3 arguments
+
+    Some types, such as ints, are able to use a more efficient algorithm when
+    invoked using the three argument form.
+
+help(math.pow)
+Help on built-in function pow in module math:
+
+pow(x, y, /)
+    Return x**y (x to the power of y).
+
+x=math.pow(4,3)
+print(x)
+64.0
+y=pow(4,3)
+print(y)
+64
+type(x)
+<class 'float'>
+type(y)
+<class 'int'>
+z=pow(2.5,3)
+print(z)
+15.625
+type(z)
+<class 'float'>
